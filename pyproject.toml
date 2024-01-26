@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=69.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ghmd"
+version = "0.1.0"
+description = "A simple CLI to convert markdown files to HTML using GitHub API using the GitHub Markdown style."
+readme = "README.md"
+authors = [{ name = "Román Via-Dufrese Saus", email = "roman910dev@gmail.com" }]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Text Processing :: Markup :: HTML",
+
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+]
+keywords = ["markdown", "github", "cli", "html", "converter"]
+dependencies = ["requests"]
+requires-python = ">=3.6"
+
+[project.urls]
+Homepage = "https://github.com/roman910dev/ghmd"
+Repository = "https://github.com/roman910dev/ghmd.git"
+Changelog = "https://github.com/roman910dev/ghmd/blob/main/CHANGELOG.md"
+
+[project.scripts]
+ghmd = "ghmd.__main__:main"
