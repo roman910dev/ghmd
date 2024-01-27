@@ -16,6 +16,8 @@ def main():
 
     embed_css = '--embed-css' in sys.argv
 
+    mode = 'markdown' if '--no-gfm' in sys.argv else 'gfm'
+
     if any(file.endswith('.html') for file in files):
         raise Exception(
             'File cannot have .html extension because it would be overwritten')
@@ -54,7 +56,10 @@ def main():
 
         res = requests.post('https://api.github.com/markdown',
                             headers={'Accept': 'application/vnd.github+json'},
-                            data=json.dumps({'text': file_content}))
+                            data=json.dumps({
+                                'text': file_content,
+                                'mode': mode
+                            }))
 
         if res.status_code != 200:
             raise Exception(
@@ -66,9 +71,9 @@ def main():
         with open(f'{filename}.html', 'w+') as f:
             f.write(
                 template
+                .replace('{{ .CSS }}', css)
                 .replace('{{ .Title }}', title)
                 .replace('{{ .Content }}', res.text)
-                .replace('{{ .CSS }}', css)
             )
 
 
