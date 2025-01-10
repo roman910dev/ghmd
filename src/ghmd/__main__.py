@@ -24,7 +24,7 @@ def main():
 
     css_uri = (
         'https://cdnjs.cloudflare.com/ajax/libs/'
-        f'github-markdown-css/5.5.0/github-markdown{theme}.min.css'
+        f'github-markdown-css/5.8.1/github-markdown{theme}.min.css'
     )
 
     if embed_css:
@@ -45,8 +45,12 @@ def main():
             '/>'
         )
 
+    headers = {'Accept': 'application/vnd.github+json'}
+    if github_token := os.environ.get('GITHUB_TOKEN'):
+        headers['Authorization'] = f'Bearer {github_token}'
+
     for file in files:
-        file_content = open(file, 'r').read()
+        file_content = open(file, 'r', encoding="utf-8").read()
 
         titleSearch = re.search(r'^# (.*)$', file_content, re.MULTILINE)
         title = titleSearch.group(1) if titleSearch else ''
@@ -55,7 +59,7 @@ def main():
         template = open(os.path.join(dirname, 'md-template.html'), 'r').read()
 
         res = requests.post('https://api.github.com/markdown',
-                            headers={'Accept': 'application/vnd.github+json'},
+                            headers=headers,
                             data=json.dumps({
                                 'text': file_content,
                                 'mode': mode
@@ -68,7 +72,7 @@ def main():
             )
 
         filename = '.'.join(file.split('.')[:-1])
-        with open(f'{filename}.html', 'w+') as f:
+        with open(f'{filename}.html', 'w+', encoding='utf-8') as f:
             f.write(
                 template
                 .replace('{{ .CSS }}', css)

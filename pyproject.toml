@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ghmd"
-version = "0.2.0"
+version = "0.3.0"
 description = "A simple CLI to convert markdown files to HTML using GitHub API using the GitHub Markdown style."
 readme = "README.md"
 authors = [{ name = "Román Via-Dufrese Saus", email = "roman910dev@gmail.com" }]
@@ -22,6 +22,11 @@ classifiers = [
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 keywords = ["markdown", "github", "cli", "html", "converter"]
 dependencies = ["requests"]

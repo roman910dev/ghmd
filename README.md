@@ -27,6 +27,17 @@ ghmd README.md CONTRIBUTING.md
 
 ## Options
 
+### GitHub API Token
+
+By default, ghmd uses unauthenticated requests to the GitHub API, which has a rate limit of 60 requests per hour. To increase this limit to 5000 requests per hour, you can set the `GITHUB_TOKEN` environment variable with a GitHub personal access token:
+
+```bash
+export GITHUB_TOKEN=your_github_token_here
+ghmd README.md
+```
+
+To create a personal access token, visit your [GitHub Settings > Developer Settings > Personal access tokens](https://github.com/settings/tokens) and create a new token (no specific scopes are required).
+
 ### `--embed-css`
 
 By default, ghmd will add the remote CSS as a `<link>` tag in the HTML file. If you want to embed the CSS directly into the HTML file so that, for example, you can send the HTML file to someone else and they can view it without an internet connection, you can use the `--embed-css` option.
