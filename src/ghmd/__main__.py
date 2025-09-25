@@ -4,6 +4,18 @@ import re
 import sys
 import requests
 
+help_message = """
+Usage: ghmd [options] <file>...
+
+Options:
+    --dark              Use dark theme only
+    --light             Use light theme only
+    --embed-css         Embed the CSS into the HTML file instead of using the <link> tag
+    --no-gfm            Use plain Markdown mode instead of GitHub Flavored Markdown (gfm)
+    --help              Show this help message and exit
+
+Full documentation: https://github.com/roman910dev/ghmd
+"""
 
 def main():
     files = [argv for argv in sys.argv[1:] if not argv.startswith("--")]
@@ -14,7 +26,9 @@ def main():
     mode = "gfm"
 
     for option in options:
-        if option == "--dark":
+        if option == "--help":
+            return print(help_message)
+        elif option == "--dark":
             theme = "-dark"
         elif option == "--light":
             theme = "-light"
