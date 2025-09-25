@@ -63,7 +63,7 @@ Both `--light` and `--dark` can be used in combination with `--embed-css`.
 
 ### `--no-gfm`
 
-The tool offers two modes: GitHub Flavored Markdown (gfm, default) and plain Markdown. To use the later, the `--no-gfm` option can be used:
+The tool offers two modes: GitHub Flavored Markdown (gfm, default) and plain Markdown. To use the latter, the `--no-gfm` option can be used:
 
 ```bash
 ghmd README.md --no-gfm
