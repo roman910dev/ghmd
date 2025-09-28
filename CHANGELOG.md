@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0] - 2025-09-28
+
+### Added
+
+-   Help message when using `--help`.
+-   Show an error message when an invalid option is used.
+
 ## [0.3.0] - 2025-01-10
 
 ### Added
