@@ -9,7 +9,8 @@
 	},
 	"conventionalCommits.scopes": [
 		"python",
-		"repo"
+		"repo",
+		"test"
 	],
 	"[json]": {
 		"editor.defaultFormatter": "biomejs.biome"

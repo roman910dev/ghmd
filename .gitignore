@@ -29,3 +29,6 @@ MANIFEST
 
 # Node
 node_modules/
+
+# Test
+test/output/
