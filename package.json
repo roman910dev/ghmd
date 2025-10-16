@@ -1,0 +1,25 @@
+{
+  "name": "ghmd-dev",
+  "version": "1.0.0",
+  "description": "This is not a package itself. It just defines an environment to develop and test the `ghmd` package. It is available for python and node, both can be found under the `src` directory.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "Román Via-Dufrese Saus <roman910dev@gmail.com>",
+  "homepage": "https://github.com/roman910dev/ghmd",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roman910dev/ghmd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/roman910dev/ghmd/issues"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@10.18.3",
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.6",
+    "vitest": "^3.2.4"
+  }
+}
