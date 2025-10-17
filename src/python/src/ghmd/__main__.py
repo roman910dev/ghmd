@@ -79,7 +79,7 @@ def main():
         title = titleSearch.group(1) if titleSearch else ""
 
         dirname = os.path.dirname(__file__)
-        template = open(os.path.join(dirname, "../common/md-template.html"), "r").read()
+        template = open(os.path.join(dirname, "../../../common/md-template.html"), "r").read()
 
         res = requests.post(
             "https://api.github.com/markdown",
