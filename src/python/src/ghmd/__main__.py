@@ -18,7 +18,6 @@ Full documentation: https://github.com/roman910dev/ghmd
 """
 
 def main():
-    print('ghmd test')
     files = [argv for argv in sys.argv[1:] if not argv.startswith("--")]
     options = [argv for argv in sys.argv[1:] if argv.startswith("--")]
 
