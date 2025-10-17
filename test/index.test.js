@@ -6,7 +6,6 @@ import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const cli = path.join(__dirname, '../src/python/venv/bin/ghmd')
 const fixture = path.join(__dirname, 'fixture.md')
 const options = [
 	['', '--light', '--dark'],
@@ -24,15 +23,25 @@ const testCases = combinations.map((combination) => ({
 	combination,
 }))
 
-const outputPath = (name) => path.join(__dirname, 'output', name)
+const binaries = [
+	{ name: 'python', cliPath: '../src/python/venv/bin/ghmd', runner: '' },
+	{ name: 'node', cliPath: '../src/node/src/index.js', runner: 'node' },
+]
 
-const run = (...args) => {
-	const res = execSync(`${cli} ${args.join(' ')}`).toString()
-	console.log(res)
-	return res
-}
+describe.each(binaries)('ghmd: $name', ({ name, cliPath, runner }) => {
+	const outputPath = (fileName) =>
+		path.join(__dirname, 'output', name, fileName)
 
-describe('ghmd', () => {
+	const cli = path.join(__dirname, cliPath)
+
+	const run = (...args) => {
+		// Use the runner to build the command
+		const command = [runner, cli, ...args].filter(Boolean).join(' ')
+		const res = execSync(command).toString()
+		console.log(res)
+		return res
+	}
+
 	describe('misc', () => {
 		it('should show help message', () => {
 			expect(run('--help')).toContain('Usage: ghmd [options] <file>...')
