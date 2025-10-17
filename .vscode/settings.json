@@ -5,12 +5,14 @@
 	"editor.defaultFormatter": "biomejs.biome",
 	"editor.formatOnSave": true,
 	"editor.codeActionsOnSave": {
-		"source.organizeImports.biome": "explicit"
+		"source.organizeImports.biome": "explicit",
+		"source.removeUnusedImports": "explicit"
 	},
 	"conventionalCommits.scopes": [
 		"python",
 		"repo",
-		"test"
+		"test",
+		"node"
 	],
 	"[json]": {
 		"editor.defaultFormatter": "biomejs.biome"
