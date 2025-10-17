@@ -71,7 +71,7 @@ async function main() {
 		const title = fileContent.match(/^# (.*)$/m)?.[1] ?? ''
 
 		const dirname = path.dirname(fileURLToPath(import.meta.url))
-		const templatePath = path.join(dirname, '../../../common/md-template.html')
+		const templatePath = path.join(dirname, '../../common/md-template.html')
 		const template = readFileSync(templatePath, 'utf-8')
 
 		const res = await fetch('https://api.github.com/markdown', {
@@ -85,7 +85,7 @@ async function main() {
 				'Could not convert markdown to HTML. Check your internet connection.',
 			)
 
-		const filename = file.split('.').slice(0, -1).join('.') + '.html'
+		const filename = `${file.split('.').slice(0, -1).join('.')}.html`
 		writeFileSync(
 			filename,
 			template
