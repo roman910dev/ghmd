@@ -39,3 +39,8 @@ Changelog = "https://github.com/roman910dev/ghmd/blob/main/CHANGELOG.md"
 
 [project.scripts]
 ghmd = "ghmd.__main__:main"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.0.17",
+]
