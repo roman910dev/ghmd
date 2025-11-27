@@ -17,6 +17,7 @@ Options:
 Full documentation: https://github.com/roman910dev/ghmd
 """
 
+
 def main():
     files = [argv for argv in sys.argv[1:] if not argv.startswith("--")]
     options = [argv for argv in sys.argv[1:] if argv.startswith("--")]
@@ -78,7 +79,9 @@ def main():
         title = titleSearch.group(1) if titleSearch else ""
 
         dirname = os.path.dirname(__file__)
-        template = open(os.path.join(dirname, "../../../common/md-template.html"), "r").read()
+        template = open(
+            os.path.join(dirname, "../../../common/md-template.html"), "r"
+        ).read()
 
         res = requests.post(
             "https://api.github.com/markdown",
