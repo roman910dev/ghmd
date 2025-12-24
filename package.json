@@ -8,7 +8,7 @@
     "format": "pnpm format:node & pnpm format:python",
     "postinstall": "cd ./src/python && uv sync --all-groups",
     "prepare": "(rimraf src/node/shared && ncp src/shared src/node/shared) & (rimraf src/python/shared && ncp src/shared src/python/shared)",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest"
   },
   "type": "module",
   "keywords": [],
