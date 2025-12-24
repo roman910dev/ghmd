@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "This is not a package itself. It just defines an environment to develop and test the `ghmd` package. It is available for python and node, both can be found under the `src` directory.",
   "scripts": {
+    "format:node": "biome format --write",
+    "format:python": "cd ./src/python && uv run ruff format",
+    "format": "pnpm format:node & pnpm format:python",
+    "postinstall": "cd ./src/python && uv sync --all-groups",
     "prepare": "(rimraf src/node/shared && ncp src/shared src/node/shared) & (rimraf src/python/shared && ncp src/shared src/python/shared)",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
