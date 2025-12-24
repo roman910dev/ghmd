@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "This is not a package itself. It just defines an environment to develop and test the `ghmd` package. It is available for python and node, both can be found under the `src` directory.",
   "scripts": {
+    "prepare": "(rimraf src/node/shared && ncp src/shared src/node/shared) & (rimraf src/python/shared && ncp src/shared src/python/shared)",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
@@ -20,6 +21,8 @@
   "packageManager": "pnpm@10.18.3",
   "devDependencies": {
     "@biomejs/biome": "^2.2.6",
+    "ncp": "^2.0.0",
+    "rimraf": "^6.1.2",
     "vitest": "^3.2.4"
   }
 }

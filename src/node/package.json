@@ -10,6 +10,10 @@
   "bin": {
     "ghmd": "./src/index.js"
   },
+  "files": [
+    "src",
+    "shared"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",

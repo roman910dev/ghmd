@@ -71,7 +71,7 @@ async function main() {
 		const title = fileContent.match(/^# (.*)$/m)?.[1] ?? ''
 
 		const dirname = path.dirname(fileURLToPath(import.meta.url))
-		const templatePath = path.join(dirname, '../../shared/md-template.html')
+		const templatePath = path.join(dirname, '../shared/md-template.html')
 		const template = readFileSync(templatePath, 'utf-8')
 
 		const res = await fetch('https://api.github.com/markdown', {

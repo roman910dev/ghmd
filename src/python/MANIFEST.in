@@ -1,1 +1,1 @@
-include ../shared/md-template.html
+include ./shared
