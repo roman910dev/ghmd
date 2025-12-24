@@ -80,7 +80,7 @@ def main():
 
         dirname = os.path.dirname(__file__)
         template = open(
-            os.path.join(dirname, "../../../common/md-template.html"), "r"
+            os.path.join(dirname, "../../../shared/md-template.html"), "r"
         ).read()
 
         res = requests.post(
