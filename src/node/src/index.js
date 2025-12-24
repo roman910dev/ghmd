@@ -2,25 +2,16 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const helpMessage = `
-Usage: ghmd [options] <file>...
+const strings = JSON.parse(getShared('strings.json'))
 
-Options:
-    --dark              Use dark theme only
-    --light             Use light theme only
-    --embed-css         Embed the CSS into the HTML file instead of using the <link> tag
-    --no-gfm            Use plain Markdown mode instead of GitHub Flavored Markdown (gfm)
-    --help              Show this help message and exit
-
-Full documentation: https://github.com/roman910dev/ghmd
-`
+function getShared(filename) {
+	const dirname = path.dirname(fileURLToPath(import.meta.url))
+	return readFileSync(path.join(dirname, '../shared', filename), 'utf-8')
+}
 
 async function getEmbeddedCss(cssUri) {
 	const res = await fetch(cssUri)
-	if (res.status !== 200)
-		throw new Error(
-			'Could not get css. Check your internet connection or try without --embed-css.',
-		)
+	if (res.status !== 200) throw new Error(strings.errors.embedCss)
 	return `<style>${await res.text()}</style>`
 }
 
@@ -33,31 +24,23 @@ async function main() {
 	let mode = 'gfm'
 
 	for (const option of options) {
-		if (option === '--help') return console.log(helpMessage)
+		if (option === '--help') return console.log(strings.helpMessage.join('\n'))
 		else if (option === '--dark') theme = '-dark'
 		else if (option === '--light') theme = '-light'
 		else if (option === '--embed-css') embedCss = true
 		else if (option === '--no-gfm') mode = 'markdown'
-		else throw new Error(`Invalid option: ${option}`)
+		else
+			throw new Error(strings.errors.invalidOption.replace('{option}', option))
 	}
 
 	if (files.some((file) => file.endsWith('.html')))
-		throw new Error(
-			'File cannot have .html extension because it would be overwritten',
-		)
+		throw new Error(strings.errors.htmlExtension)
 
-	const cssUri = `https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown${theme}.min.css`
+	const cssUri = strings.css.uri.replace('{theme}', theme)
 
 	const css = embedCss
 		? await getEmbeddedCss(cssUri)
-		: [
-				'<link',
-				'rel="stylesheet"',
-				`href="${cssUri}"`,
-				`crossorigin="anonymous"`,
-				`referrerpolicy="no-referrer"`,
-				'/>',
-			].join(' ')
+		: [strings.css.link.replace('{uri}', cssUri)].join(' ')
 
 	const headers = {
 		Accept: 'application/vnd.github+json',
@@ -70,9 +53,7 @@ async function main() {
 
 		const title = fileContent.match(/^# (.*)$/m)?.[1] ?? ''
 
-		const dirname = path.dirname(fileURLToPath(import.meta.url))
-		const templatePath = path.join(dirname, '../shared/md-template.html')
-		const template = readFileSync(templatePath, 'utf-8')
+		const template = getShared('md-template.html')
 
 		const res = await fetch('https://api.github.com/markdown', {
 			method: 'POST',
@@ -80,10 +61,7 @@ async function main() {
 			body: JSON.stringify({ text: fileContent, mode }),
 		})
 
-		if (res.status !== 200)
-			throw new Error(
-				'Could not convert markdown to HTML. Check your internet connection.',
-			)
+		if (res.status !== 200) throw new Error(strings.errors.markdownConversion)
 
 		const filename = `${file.split('.').slice(0, -1).join('.')}.html`
 		writeFileSync(

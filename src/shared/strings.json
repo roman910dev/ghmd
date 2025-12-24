@@ -1,0 +1,24 @@
+{
+    "helpMessage": [
+        "Usage: ghmd [options] <file>...",
+        "",
+        "Options:",
+        "    --dark              Use dark theme only",
+        "    --light             Use light theme only",
+        "    --embed-css         Embed the CSS into the HTML file instead of using the <link> tag",
+        "    --no-gfm            Use plain Markdown mode instead of GitHub Flavored Markdown (gfm)",
+        "    --help              Show this help message and exit",
+        "",
+        "Full documentation: https://github.com/roman910dev/ghmd"
+    ],
+    "errors": {
+        "invalidOption": "Invalid option: {option}",
+        "htmlExtension": "File cannot have .html extension because it would be overwritten",
+        "embedCss": "Could not get css. Check your internet connection or try without --embed-css.",
+        "markdownConversion": "Could not convert markdown to HTML. Check your internet connection."
+    },
+    "css": {
+        "uri": "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown{theme}.min.css",
+        "link": "<link rel=\"stylesheet\" href=\"{uri}\" crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\" />"
+    }
+}
