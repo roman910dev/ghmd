@@ -5,6 +5,10 @@ on:
     tags:
       - 'v*'  # Triggers on tags starting with 'v' (e.g., v1.0.0, v0.3.0)
 
+defaults:
+  run:
+    working-directory: ./src/python
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -24,12 +28,10 @@ jobs:
         pip install build twine
         
     - name: Build package
-      working-directory: src/python
       run: |
         python -m build
         
     - name: Publish to PyPI
-      working-directory: src/python
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
