@@ -30,14 +30,16 @@ jobs:
         with:
           version: 10
 
-      - name: Install dependencies
+      - name: Install root dependencies
+        working-directory: .
         run: pnpm install --frozen-lockfile
 
-      - name: Build
-        run: pnpm run build
+      # can be skipped as we do not use any dependencies
+      # - name: Install node dependencies
+      #   run: pnpm install --frozen-lockfile
 
       - name: Publish to JSR
-        run: pnpm dlx jsr publish
+        run: pnpm dlx jsr publish ${ACT:+--dry-run}
 
       - name: Publish to npm
-        run: pnpm publish --access public --no-git-checks
+        run: pnpm publish --access public --no-git-checks ${ACT:+--dry-run}
