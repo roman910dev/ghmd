@@ -6,22 +6,10 @@
     "format:node": "biome format --write",
     "format:python": "cd ./src/python && uv run ruff format",
     "format": "pnpm format:node & pnpm format:python",
-    "postinstall": "cd ./src/python && uv sync --all-groups",
-    "prepare": "(rimraf src/node/shared && ncp src/shared src/node/shared) & (rimraf src/python/shared && ncp src/shared src/python/shared)",
+    "postinstall": "if [ \"$CI\" != \"true\" ]; then cd ./src/python && uv sync --all-groups; fi",
+    "prepare": "(rimraf src/node/shared && ncp src/shared src/node/shared) & (rimraf src/python/shared && ncp src/shared src/python/shared) & ncp README.md src/node/README.md & ncp README.md src/python/README.md",
     "test": "vitest"
-  },
-  "type": "module",
-  "keywords": [],
-  "author": "Román Via-Dufrese Saus <roman910dev@gmail.com>",
-  "homepage": "https://github.com/roman910dev/ghmd",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roman910dev/ghmd.git"
-  },
-  "bugs": {
-    "url": "https://github.com/roman910dev/ghmd/issues"
-  },
-  "license": "MIT",
+  },  
   "packageManager": "pnpm@10.18.3",
   "devDependencies": {
     "@biomejs/biome": "^2.2.6",
