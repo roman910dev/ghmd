@@ -8,9 +8,8 @@ version = "0.4.0"
 description = "A simple CLI to convert markdown files to HTML using GitHub API using the GitHub Markdown style."
 readme = "README.md"
 authors = [{ name = "Román Via-Dufrese Saus", email = "roman910dev@gmail.com" }]
+license = "MIT"
 classifiers = [
-    "License :: OSI Approved :: MIT License",
-
     "Intended Audience :: End Users/Desktop",
     "Intended Audience :: Developers",
     "Topic :: Software Development :: Build Tools",
