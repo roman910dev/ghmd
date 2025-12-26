@@ -1,0 +1,23 @@
+{
+	"prettier.enable": false,
+	"eslint.enable": false,
+	"biome.enabled": true,
+	"editor.defaultFormatter": "biomejs.biome",
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.organizeImports.biome": "explicit",
+		"source.removeUnusedImports": "explicit"
+	},
+	"conventionalCommits.scopes": [
+		"python",
+		"repo",
+		"test",
+		"node"
+	],
+	"[json]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[python]": {
+		"editor.defaultFormatter": "charliermarsh.ruff"
+	}
+}

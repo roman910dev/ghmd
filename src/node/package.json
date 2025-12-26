@@ -1,0 +1,38 @@
+{
+  "name": "ghmd",
+  "version": "1.0.0",
+  "description": "A simple CLI to convert markdown files to HTML using GitHub API using the GitHub Markdown style.",
+  "author": "Román Via-Dufrese Saus <roman910dev@gmail.com>",
+  "homepage": "https://github.com/roman910dev/ghmd",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roman910dev/ghmd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/roman910dev/ghmd/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "markdown",
+    "github",
+    "cli",
+    "html",
+    "converter"
+  ],
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "ghmd": "./src/index.js"
+  },
+  "files": [
+    "src",
+    "shared",
+    "README.md"
+  ],
+  "packageManager": "pnpm@10.18.3",
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.6"
+  }
+}

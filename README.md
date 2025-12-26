@@ -4,9 +4,22 @@ ghmd (GitHub Markdown) is an extremely light-weight and simple command line tool
 
 It does so by using the [GitHub Markdown API](https://docs.github.com/en/free-pro-team@latest/rest/reference/markdown) in combination with [GitHub Markdown CSS](https://github.com/sindresorhus/github-markdown-css).
 
+It has two available implementations:
+
+-   [Python](https://pypi.org/project/ghmd/)
+-   [Node.js](https://www.npmjs.com/package/ghmd)
+  
 ## Installation
 
 ```bash
+# Node.js
+npm install -g ghmd
+```
+
+or
+
+```bash
+# Python
 pip install ghmd
 ```
 

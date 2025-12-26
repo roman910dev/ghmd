@@ -1,0 +1,10 @@
+{
+    "$schema": "https://jsr.io/schema/config-file.v1.json",
+    "name": "@roman910dev/ghmd",
+    "version": "1.0.0",
+    "license": "MIT",
+    "exports": "./src/index.js",
+    "publish": {
+        "include": ["src", "shared", "README.md"]
+    }
+  }

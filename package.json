@@ -1,0 +1,20 @@
+{
+  "name": "ghmd-dev",
+  "version": "1.0.0",
+  "description": "This is not a package itself. It just defines an environment to develop and test the `ghmd` package. It is available for python and node, both can be found under the `src` directory.",
+  "scripts": {
+    "format:node": "biome format --write",
+    "format:python": "cd ./src/python && uv run ruff format",
+    "format": "pnpm format:node & pnpm format:python",
+    "postinstall": "if [ \"$CI\" != \"true\" ]; then cd ./src/python && uv sync --all-groups; fi",
+    "prepare": "(rimraf src/node/shared && ncp src/shared src/node/shared) & (rimraf src/python/shared && ncp src/shared src/python/shared) & ncp README.md src/node/README.md & ncp README.md src/python/README.md",
+    "test": "vitest"
+  },  
+  "packageManager": "pnpm@10.18.3",
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.6",
+    "ncp": "^2.0.0",
+    "rimraf": "^6.1.2",
+    "vitest": "^3.2.4"
+  }
+}

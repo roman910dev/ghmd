@@ -26,3 +26,19 @@ share/python-wheels/
 *.egg
 venv/
 MANIFEST
+
+# Node
+node_modules/
+
+# Test
+test/output/
+
+# Shared
+src/node/shared/
+src/python/shared/
+src/node/README.md
+src/python/README.md
+
+# Local
+*.local.*
+*.local/
