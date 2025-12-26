@@ -12,7 +12,8 @@
   },
   "files": [
     "src",
-    "shared"
+    "shared",
+    "README.md"
   ],
   "keywords": [],
   "author": "",
