@@ -1,43 +1,43 @@
 name: Publish to PyPI
 
 on:
-    push:
-        tags:
-            - "v[0-9]+.[0-9]+.[0-9]+" # 1.2.3
-            - "v[0-9]+.[0-9]+.[0-9]+.post*" # 1.2.3.post1
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+" # 1.2.3
+      - "v[0-9]+.[0-9]+.[0-9]+.post*" # 1.2.3.post1
 
 defaults:
-    run:
-        working-directory: ./src/python
+  run:
+    working-directory: ./src/python
 
 jobs:
-    publish:
-        runs-on: ubuntu-latest
-        permissions:
-            contents: read
-            id-token: write
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            - name: Install pnpm
-              uses: pnpm/action-setup@v3
-              with:
-                  version: 10
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
 
-            - name: Install root dependencies
-              working-directory: .
-              run: pnpm install --frozen-lockfile
+      - name: Install root dependencies
+        working-directory: .
+        run: pnpm install --frozen-lockfile
 
-            - name: Install uv
-              uses: astral-sh/setup-uv@v7
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
 
-            - name: Install Python 3.13
-              run: uv python install 3.13
+      - name: Install Python 3.13
+        run: uv python install 3.13
 
-            - name: Build
-              run: uv build
+      - name: Build
+        run: uv build
 
-            - name: Publish
-              run: uv publish ${ACT:+--dry-run}
+      - name: Publish
+        run: uv publish ${ACT:+--dry-run}
