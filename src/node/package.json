@@ -1,5 +1,5 @@
 {
-  "name": "ghmd",
+  "name": "ghmd-js",
   "version": "1.0.0",
   "description": "A simple CLI to convert markdown files to HTML using GitHub API using the GitHub Markdown style.",
   "author": "Román Via-Dufrese Saus <roman910dev@gmail.com>",
