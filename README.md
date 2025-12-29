@@ -13,7 +13,7 @@ It has two available implementations:
 
 ```bash
 # Node.js
-npm install -g ghmd
+npm install -g ghmd-js
 ```
 
 or

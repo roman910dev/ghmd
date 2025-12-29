@@ -1,12 +1,12 @@
 {
-  "name": "ghmd",
+  "name": "ghmd-js",
   "version": "1.0.0",
   "description": "A simple CLI to convert markdown files to HTML using GitHub API using the GitHub Markdown style.",
   "author": "Román Via-Dufrese Saus <roman910dev@gmail.com>",
   "homepage": "https://github.com/roman910dev/ghmd",
   "repository": {
     "type": "git",
-    "url": "https://github.com/roman910dev/ghmd.git"
+    "url": "git+https://github.com/roman910dev/ghmd.git"
   },
   "bugs": {
     "url": "https://github.com/roman910dev/ghmd/issues"
@@ -24,7 +24,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "ghmd": "./src/index.js"
+    "ghmd": "src/index.js"
   },
   "files": [
     "src",
@@ -34,5 +34,8 @@
   "packageManager": "pnpm@10.18.3",
   "devDependencies": {
     "@biomejs/biome": "^2.2.6"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
