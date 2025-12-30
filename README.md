@@ -7,7 +7,7 @@ It does so by using the [GitHub Markdown API](https://docs.github.com/en/free-pr
 It has two available implementations:
 
 -   [Python](https://pypi.org/project/ghmd/)
--   [Node.js](https://www.npmjs.com/package/ghmd)
+-   [Node.js](https://www.npmjs.com/package/ghmd-js)
   
 ## Installation
 
