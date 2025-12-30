@@ -1,6 +1,6 @@
 {
   "name": "ghmd-dev",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This is not a package itself. It just defines an environment to develop and test the `ghmd` package. It is available for python and node, both can be found under the `src` directory.",
   "scripts": {
     "format:node": "biome format --write",
