@@ -35,7 +35,7 @@ test/output/
 
 # Shared
 src/node/shared/
-src/python/shared/
+src/python/src/ghmd/shared/
 src/node/README.md
 src/python/README.md
 

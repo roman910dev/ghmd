@@ -39,6 +39,12 @@ Changelog = "https://github.com/roman910dev/ghmd/blob/main/CHANGELOG.md"
 [project.scripts]
 ghmd = "ghmd.__main__:main"
 
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"ghmd" = ["shared/*"]
+
 [dependency-groups]
 dev = [
     "ruff>=0.0.17",
