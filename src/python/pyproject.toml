@@ -34,7 +34,7 @@ requires-python = ">=3.6"
 [project.urls]
 Homepage = "https://github.com/roman910dev/ghmd"
 Repository = "https://github.com/roman910dev/ghmd.git"
-Changelog = "https://github.com/roman910dev/ghmd/blob/main/CHANGELOG.md"
+Changelog = "https://github.com/roman910dev/ghmd/releases"
 
 [project.scripts]
 ghmd = "ghmd.__main__:main"
