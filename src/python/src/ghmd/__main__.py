@@ -1,13 +1,16 @@
 import json
 import os
+import pkgutil
 import re
 import sys
 import requests
 
 
 def getShared(filename):
-    filePath = os.path.join(os.path.dirname(__file__), "../../shared", filename)
-    return open(filePath, "r").read()
+    data = pkgutil.get_data("ghmd", f"shared/{filename}")
+    if data is None:
+        raise FileNotFoundError(f"ghmd shared file not found: {filename}")
+    return data.decode("utf-8")
 
 
 strings = json.loads(getShared("strings.json"))

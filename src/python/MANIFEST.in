@@ -1,1 +1,1 @@
-include ./shared/*
+recursive-include src/ghmd/shared *
