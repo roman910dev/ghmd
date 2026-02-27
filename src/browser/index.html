@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ghmd browser</title>
+		<link rel="stylesheet" href="/src/style.css" />
+	</head>
+	<body>
+		<main class="app">
+			<h1>ghmd browser</h1>
+			<p>Write or upload markdown, then download HTML.</p>
+
+			<div class="controls">
+				<input type="file" id="fileInput" accept=".md,.markdown,.txt,text/markdown" />
+				<label><input type="checkbox" id="noGfm" /> plain markdown (--no-gfm)</label>
+				<label><input type="checkbox" id="embedCss" /> embed css (--embed-css)</label>
+				<select id="theme">
+					<option value="">system theme</option>
+					<option value="-light">light</option>
+					<option value="-dark">dark</option>
+				</select>
+			</div>
+
+			<textarea id="markdownInput" placeholder="# Hello\n\nWrite markdown here..." rows="18"></textarea>
+
+			<button id="downloadButton" type="button">Download HTML</button>
+			<p id="status" role="status"></p>
+		</main>
+		<script type="module" src="/src/main.js"></script>
+	</body>
+</html>

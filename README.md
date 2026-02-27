@@ -4,10 +4,12 @@ ghmd (GitHub Markdown) is an extremely light-weight and simple command line tool
 
 It does so by using the [GitHub Markdown API](https://docs.github.com/en/free-pro-team@latest/rest/reference/markdown) in combination with [GitHub Markdown CSS](https://github.com/sindresorhus/github-markdown-css).
 
-It has two available implementations:
+
+It has three available implementations:
 
 -   [Python](https://pypi.org/project/ghmd/)
 -   [Node.js](https://www.npmjs.com/package/ghmd-js)
+-   Browser (Vite app under `src/browser`)
   
 ## Installation
 
@@ -80,4 +82,22 @@ The tool offers two modes: GitHub Flavored Markdown (gfm, default) and plain Mar
 
 ```bash
 ghmd README.md --no-gfm
+```
+
+## Browser app (minimal Vite port)
+
+A minimal browser version lives in `src/browser`. It supports:
+
+- Writing markdown in a textarea
+- Uploading a markdown file
+- Converting with GitHub Markdown API
+- Downloading the result as an HTML file
+- `--no-gfm`, `--embed-css`, and light/dark CSS variants through UI controls
+
+Run it locally:
+
+```bash
+cd src/browser
+pnpm install
+pnpm dev
 ```
