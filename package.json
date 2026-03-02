@@ -5,11 +5,12 @@
   "scripts": {
     "dev:browser": "pnpm --dir ./src/browser dev",
     "build:browser": "pnpm --dir ./src/browser build",
+    "build:node": "pnpm --dir ./src/node build",
     "format:node": "biome format --write",
     "format:python": "cd ./src/python && uv run ruff format",
     "format": "pnpm format:node & pnpm format:python",
     "postinstall": "if [ \"$CI\" != \"true\" ]; then cd ./src/python && uv sync --all-groups; fi",
-    "prepare": "(rimraf src/node/shared && ncp src/shared src/node/shared) & (rimraf src/browser/shared && ncp src/shared src/browser/shared) & (rimraf src/python/src/ghmd/shared && ncp src/shared src/python/src/ghmd/shared) & ncp README.md src/node/README.md & ncp README.md src/python/README.md",
+    "prepare": "(rimraf src/node/shared && ncp src/shared src/node/shared && pnpm build:node) & (rimraf src/browser/shared && ncp src/shared src/browser/shared && pnpm build:browser) & (rimraf src/python/src/ghmd/shared && ncp src/shared src/python/src/ghmd/shared) & ncp README.md src/node/README.md & ncp README.md src/python/README.md",
     "test": "vitest run"
   },
   "packageManager": "pnpm@10.18.3",

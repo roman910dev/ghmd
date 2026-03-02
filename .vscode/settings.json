@@ -19,5 +19,8 @@
 	},
 	"[python]": {
 		"editor.defaultFormatter": "charliermarsh.ruff"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
 	}
 }

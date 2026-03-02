@@ -1,4 +1,4 @@
-import { execSync } from 'node:child_process'
+import { execFileSync } from 'node:child_process'
 import { cpSync, readFileSync, unlinkSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
@@ -25,7 +25,7 @@ const testCases = combinations.map((combination) => ({
 
 const binaries = [
 	{ name: 'python', cliPath: '../src/python/venv/bin/ghmd', runner: '' },
-	{ name: 'node', cliPath: '../src/node/src/index.js', runner: 'node' },
+	{ name: 'node', cliPath: '../src/node/dist/cli.js', runner: 'node' },
 ]
 
 describe.each(binaries)('ghmd: $name', ({ name, cliPath, runner }) => {
@@ -35,9 +35,8 @@ describe.each(binaries)('ghmd: $name', ({ name, cliPath, runner }) => {
 	const cli = path.join(__dirname, cliPath)
 
 	const run = (...args) => {
-		// Use the runner to build the command
-		const command = [runner, cli, ...args].filter(Boolean).join(' ')
-		const res = execSync(command).toString()
+		const [command, ...commandArgs] = [runner, cli, ...args].filter(Boolean)
+		const res = execFileSync(command, commandArgs).toString()
 		console.log(res)
 		return res
 	}
@@ -59,38 +58,38 @@ describe.each(binaries)('ghmd: $name', ({ name, cliPath, runner }) => {
 	})
 
 	describe('conversion', () => {
-		describe.each(testCases)(
-			'options: $name',
-			async ({ name, combination }) => {
-				it('should convert markdown to html', async () => {
-					const file = outputPath(name)
-					cpSync(fixture, file)
-					run(file, ...combination)
-					unlinkSync(file)
-					const expectedFile = path.join(__dirname, 'expected', name)
-					const [actual, expected] = await Promise.all(
-						[file, expectedFile].map((f) =>
-							readFile(f.replace(/\.md$/, '.html'), 'utf-8').then((v) =>
-								v
-									.replaceAll(/user-content-fn-1-\w+/g, 'user-content-fn-1-x')
-									.replaceAll(
-										/user-content-fnref-1-\w+/g,
-										'user-content-fnref-1-x',
-									),
-							),
+		describe.each(testCases)('options: $name', async ({
+			name,
+			combination,
+		}) => {
+			it('should convert markdown to html', async () => {
+				const file = outputPath(name)
+				cpSync(fixture, file)
+				run(file, ...combination)
+				unlinkSync(file)
+				const expectedFile = path.join(__dirname, 'expected', name)
+				const [actual, expected] = await Promise.all(
+					[file, expectedFile].map((f) =>
+						readFile(f.replace(/\.md$/, '.html'), 'utf-8').then((v) =>
+							v
+								.replaceAll(/user-content-fn-1-\w+/g, 'user-content-fn-1-x')
+								.replaceAll(
+									/user-content-fnref-1-\w+/g,
+									'user-content-fnref-1-x',
+								),
 						),
-					)
-					expect(actual).toBe(expected)
-				})
+					),
+				)
+				expect(actual).toBe(expected)
+			})
 
-				it('should have extracted title', () => {
-					const file = outputPath(name).replace(/\.md$/, '.html')
-					const title = readFileSync(file, 'utf-8').match(
-						/<title>(.*)<\/title>/,
-					)?.[1]
-					expect(title).toBe('H1')
-				})
-			},
-		)
+			it('should have extracted title', () => {
+				const file = outputPath(name).replace(/\.md$/, '.html')
+				const title = readFileSync(file, 'utf-8').match(
+					/<title>(.*)<\/title>/,
+				)?.[1]
+				expect(title).toBe('H1')
+			})
+		})
 	})
 })

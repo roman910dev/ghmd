@@ -17,11 +17,12 @@ strings = json.loads(getShared("strings.json"))
 
 
 def format_help():
+    h = strings["help"]
     options = [
         f"    {option['name'].ljust(18)}{option['description']}"
-        for option in strings["help"]["options"]
+        for option in h["options"]
     ]
-    return "\n".join(strings["help"]["description"] + options + strings["help"]["footer"])
+    return "\n".join(h["description"] + options + h["footer"])
 
 
 def main():
