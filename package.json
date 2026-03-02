@@ -3,6 +3,8 @@
   "version": "1.0.1",
   "description": "This is not a package itself. It just defines an environment to develop and test the `ghmd` package. It is available for python and node, both can be found under the `src` directory.",
   "scripts": {
+    "dev:browser": "pnpm --dir ./src/browser dev",
+    "build:browser": "pnpm --dir ./src/browser build",
     "format:node": "biome format --write",
     "format:python": "cd ./src/python && uv run ruff format",
     "format": "pnpm format:node & pnpm format:python",
