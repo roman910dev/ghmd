@@ -9,9 +9,9 @@
     "format:python": "cd ./src/python && uv run ruff format",
     "format": "pnpm format:node & pnpm format:python",
     "postinstall": "if [ \"$CI\" != \"true\" ]; then cd ./src/python && uv sync --all-groups; fi",
-    "prepare": "rimraf src/node/shared && ncp src/shared src/node/shared && rimraf src/python/src/ghmd/shared && ncp src/shared src/python/src/ghmd/shared && rimraf src/browser/shared && ncp src/shared src/browser/shared && ncp README.md src/node/README.md && ncp README.md src/python/README.md",
-    "test": "vitest"
-  },  
+    "prepare": "(rimraf src/node/shared && ncp src/shared src/node/shared) & (rimraf src/browser/shared && ncp src/shared src/browser/shared) & (rimraf src/python/src/ghmd/shared && ncp src/shared src/python/src/ghmd/shared) & ncp README.md src/node/README.md & ncp README.md src/python/README.md",
+    "test": "vitest run"
+  },
   "packageManager": "pnpm@10.18.3",
   "devDependencies": {
     "@biomejs/biome": "^2.4.5",
