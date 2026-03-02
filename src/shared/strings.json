@@ -1,16 +1,37 @@
 {
-    "helpMessage": [
-        "Usage: ghmd [options] <file>...",
-        "",
-        "Options:",
-        "    --dark              Use dark theme only",
-        "    --light             Use light theme only",
-        "    --embed-css         Embed the CSS into the HTML file instead of using the <link> tag",
-        "    --no-gfm            Use plain Markdown mode instead of GitHub Flavored Markdown (gfm)",
-        "    --help              Show this help message and exit",
-        "",
-        "Full documentation: https://github.com/roman910dev/ghmd"
-    ],
+    "help": {
+        "description": [
+            "Usage: ghmd [options] <file>...",
+            "",
+            "Options:"
+        ],
+        "options": [
+            {
+                "name": "--dark",
+                "description": "Use dark theme only"
+            },
+            {
+                "name": "--light",
+                "description": "Use light theme only"
+            },
+            {
+                "name": "--embed-css",
+                "description": "Embed the CSS into the HTML file instead of using the <link> tag"
+            },
+            {
+                "name": "--no-gfm",
+                "description": "Use plain Markdown mode instead of GitHub Flavored Markdown (gfm)"
+            },
+            {
+                "name": "--help",
+                "description": "Show this help message and exit"
+            }
+        ],
+        "footer": [
+            "",
+            "Full documentation: https://github.com/roman910dev/ghmd"
+        ]
+    },
     "errors": {
         "invalidOption": "Invalid option: {option}",
         "htmlExtension": "File cannot have .html extension because it would be overwritten",
