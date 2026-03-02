@@ -16,6 +16,14 @@ def getShared(filename):
 strings = json.loads(getShared("strings.json"))
 
 
+def format_help():
+    options = [
+        f"    {option['name'].ljust(18)}{option['description']}"
+        for option in strings["help"]["options"]
+    ]
+    return "\n".join(strings["help"]["description"] + options + strings["help"]["footer"])
+
+
 def main():
     files = [argv for argv in sys.argv[1:] if not argv.startswith("--")]
     options = [argv for argv in sys.argv[1:] if argv.startswith("--")]
@@ -26,7 +34,7 @@ def main():
 
     for option in options:
         if option == "--help":
-            return print("\n".join(strings["helpMessage"]))
+            return print(format_help())
         elif option == "--dark":
             theme = "-dark"
         elif option == "--light":

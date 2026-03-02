@@ -6,6 +6,14 @@ import { fileURLToPath } from 'node:url'
 
 const strings = JSON.parse(getShared('strings.json'))
 
+function formatHelp() {
+	const options = strings.help.options.map(
+		({ name, description }) => `    ${name.padEnd(18, ' ')}${description}`,
+	)
+
+	return [...strings.help.description, ...options, ...strings.help.footer].join('\n')
+}
+
 function getShared(filename) {
 	const dirname = path.dirname(fileURLToPath(import.meta.url))
 	return readFileSync(path.join(dirname, '../shared', filename), 'utf-8')
@@ -26,7 +34,7 @@ async function main() {
 	let mode = 'gfm'
 
 	for (const option of options) {
-		if (option === '--help') return console.log(strings.helpMessage.join('\n'))
+		if (option === '--help') return console.log(formatHelp())
 		else if (option === '--dark') theme = '-dark'
 		else if (option === '--light') theme = '-light'
 		else if (option === '--embed-css') embedCss = true

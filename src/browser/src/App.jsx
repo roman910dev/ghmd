@@ -1,47 +1,10 @@
 import { useMemo, useState } from 'react'
+import strings from '../shared/strings.json'
+import template from '../shared/md-template.html?raw'
 
-const TEMPLATE = `<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>{{ .Title }}</title>
-		{{ .CSS }}
-		<style>
-			body {
-				margin: 0;
-			}
-
-			.markdown-body-content {
-				box-sizing: border-box;
-				min-width: 200px;
-				max-width: 980px;
-				margin: 0 auto;
-				padding: 45px;
-			}
-
-			@media (max-width: 767px) {
-				.markdown-body-content {
-					padding: 15px;
-				}
-			}
-
-			.markdown-body {
-				--base-size-8: 8px;
-				--base-size-16: 16px;
-			}
-		</style>
-	</head>
-	<body class="markdown-body">
-		<article class="markdown-body-content">{{ .Content }}</article>
-	</body>
-</html>
-`
-
-const CSS_URI =
-  'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown{theme}.min.css'
-const CSS_LINK =
-  '<link rel="stylesheet" href="{uri}" crossorigin="anonymous" referrerpolicy="no-referrer" />'
+const optionDescriptionByName = Object.fromEntries(
+  strings.help.options.map(({ name, description }) => [name, description]),
+)
 
 const readText = (file) =>
   new Promise((resolve, reject) => {
@@ -62,7 +25,7 @@ export function App() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
 
-  const cssUri = useMemo(() => CSS_URI.replace('{theme}', theme), [theme])
+  const cssUri = useMemo(() => strings.css.uri.replace('{theme}', theme), [theme])
 
   async function onFileUpload(event) {
     const [file] = event.target.files ?? []
@@ -84,7 +47,7 @@ export function App() {
 
       const css = embedCss
         ? `<style>${await (await fetch(cssUri)).text()}</style>`
-        : CSS_LINK.replace('{uri}', cssUri)
+        : strings.css.link.replace('{uri}', cssUri)
 
       const markdownResponse = await fetch('https://api.github.com/markdown', {
         method: 'POST',
@@ -99,7 +62,8 @@ export function App() {
         throw new Error('Could not convert markdown to HTML.')
       }
 
-      const html = TEMPLATE.replace('{{ .CSS }}', css)
+      const html = template
+        .replace('{{ .CSS }}', css)
         .replace('{{ .Title }}', getTitle(markdown, 'ghmd browser'))
         .replace('{{ .Content }}', await markdownResponse.text())
 
@@ -138,6 +102,7 @@ export function App() {
             <option value="-light">Light</option>
             <option value="-dark">Dark</option>
           </select>
+          <small>{`${optionDescriptionByName['--light']} / ${optionDescriptionByName['--dark']}`}</small>
         </label>
 
         <label>
@@ -146,6 +111,7 @@ export function App() {
             <option value="gfm">GitHub Flavored Markdown</option>
             <option value="markdown">Plain markdown (--no-gfm)</option>
           </select>
+          <small>{optionDescriptionByName['--no-gfm']}</small>
         </label>
 
         <label className="inline">
@@ -154,7 +120,10 @@ export function App() {
             checked={embedCss}
             onChange={(event) => setEmbedCss(event.target.checked)}
           />
-          Embed CSS
+          <span>
+            Embed CSS
+            <small>{optionDescriptionByName['--embed-css']}</small>
+          </span>
         </label>
       </div>
 
