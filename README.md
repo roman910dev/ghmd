@@ -29,6 +29,8 @@ pip install ghmd
 
 ## Usage
 
+### CLI (Node, Python)
+
 Simply run `ghmd` with the path to the markdown file(s) you want to convert. An HTML file will be created in the same directory as the markdown file with the same filename.
 
 ```bash
@@ -38,9 +40,20 @@ ghmd README.md CONTRIBUTING.md
 ```
 
 > [!NOTE]
-> If you don't have the `ghmd` command available after installing, you may need to add the Python scripts directory to your PATH environment variable.
+> If you don't have the `ghmd` command available after installing, you may need to add the Python or NPM scripts directory to your PATH environment variable.
 >
 > Otherwise you, can use `python -m ghmd` instead of `ghmd`.
+
+### API (Node)
+
+The Node implementation exposes an API that can be used as follows. This is not available in the Python implementation.
+
+```ts
+import { convertMarkdownToHtml } from 'ghmd-js'
+
+const html = await convertMarkdownToHtml('# Hello, world!')
+console.log(html)
+```
 
 ## Options
 
