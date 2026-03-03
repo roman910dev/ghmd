@@ -8,16 +8,10 @@ It has two available implementations:
 
 -   [Python](https://pypi.org/project/ghmd/)
 -   [Node.js](https://www.npmjs.com/package/ghmd-js)
--   Browser app (React + Vite, in `src/browser`)
+   
+The Node.js implementation is browser-compatible. You can use it at:
 
-## Browser app
-
-```bash
-pnpm --dir src/browser install
-pnpm dev:browser
-```
-
-The browser app lets you either upload a markdown file or write markdown directly, then download the converted HTML file.
+-   [Browser app](https://ghmd.roman910.dev)
   
 ## Installation
 
