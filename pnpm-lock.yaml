@@ -23,6 +23,9 @@ importers:
 
   src/browser:
     dependencies:
+      ghmd-js:
+        specifier: workspace:*
+        version: link:../node
       react:
         specifier: ^19.1.1
         version: 19.2.4
