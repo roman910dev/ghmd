@@ -3,7 +3,15 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import { strings } from './generated/shared.js'
 import type { GhmdMode, GhmdTheme } from './index.js'
-import { convertMarkdownToHtml, formatHelpMessage } from './index.js'
+import { convertMarkdownToHtml } from './index.js'
+
+function formatHelpMessage() {
+	const help = strings.help
+	const options = help.options.map(
+		({ name, description }) => `    ${name.padEnd(18, ' ')}${description}`,
+	)
+	return [...help.description, ...options, ...help.footer].join('\n')
+}
 
 interface ParsedCliArguments {
 	files: string[]
@@ -12,7 +20,6 @@ interface ParsedCliArguments {
 	embedCss: boolean
 	mode: GhmdMode
 }
-
 function parseCliArguments(args: string[]): ParsedCliArguments {
 	const files = args.filter((arg) => !arg.startsWith('--'))
 	const options = args.filter((arg) => arg.startsWith('--'))
@@ -53,13 +60,11 @@ async function convertFile(
 }
 
 async function main() {
-	const { files, help, theme, embedCss, mode } = parseCliArguments(
-		process.argv.slice(2),
-	)
+	const { files, help, ...options } = parseCliArguments(process.argv.slice(2))
 
 	if (help) return console.log(formatHelpMessage())
 
-	for (const file of files) await convertFile(file, { theme, embedCss, mode })
+	for (const file of files) await convertFile(file, options)
 }
 
 main()

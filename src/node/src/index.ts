@@ -6,14 +6,6 @@ export type GhmdMode = 'gfm' | 'markdown'
 
 const MARKDOWN_API_URL = 'https://api.github.com/markdown'
 
-export function formatHelpMessage() {
-	const help = strings.help
-	const options = help.options.map(
-		({ name, description }) => `    ${name.padEnd(18, ' ')}${description}`,
-	)
-	return [...help.description, ...options, ...help.footer].join('\n')
-}
-
 function assertTheme(theme: GhmdTheme) {
 	if (!['system', 'light', 'dark'].includes(theme))
 		throw new Error(
@@ -26,10 +18,18 @@ function assertMode(mode: GhmdMode) {
 		throw new Error(`Invalid mode: ${mode}. Expected one of: gfm, markdown.`)
 }
 
+/**
+ * Extracts the first Markdown H1 (`# Title`) and uses it as a page title.
+ * Returns `fallback` when no H1 is present.
+ */
 export function resolveTitle(markdown: string, fallback = '') {
 	return markdown.match(/^# (.*)$/m)?.[1] ?? fallback
 }
 
+/**
+ * Resolves the stylesheet URL for a given theme variant.
+ * Uses the default (no suffix) stylesheet for `system`, and `-light` / `-dark` suffixes otherwise.
+ */
 export function getCssUri({ theme = 'system' }: { theme?: GhmdTheme } = {}) {
 	assertTheme(theme)
 	const themeSuffix = theme === 'system' ? '' : `-${theme}`
@@ -42,6 +42,10 @@ async function getEmbeddedCss(cssUri: string, fetchImpl: FetchImpl = fetch) {
 	return `<style>${await res.text()}</style>`
 }
 
+/**
+ * Returns stylesheet markup for the selected theme.
+ * By default it returns a `<link>` tag, and switches to inline `<style>` when `embedCss` is enabled.
+ */
 export async function getCss({
 	theme = 'system',
 	embedCss = false,
@@ -62,6 +66,10 @@ export interface GhmdRenderOptions {
 	token?: string
 	fetchImpl?: FetchImpl
 }
+/**
+ * Converts Markdown to HTML through GitHub's `/markdown` API.
+ * Optionally sends a bearer token and allows swapping the fetch implementation for custom runtimes or testing.
+ */
 export async function renderMarkdown(
 	markdown: string,
 	{ mode = 'gfm', token, fetchImpl = fetch }: GhmdRenderOptions = {},
@@ -91,6 +99,10 @@ export interface GhmdBuildOptions {
 	pageTitle?: string
 	htmlTemplate?: string
 }
+/**
+ * Injects rendered content, CSS, and title into the HTML template placeholders.
+ * If `pageTitle` is not provided, it falls back to the first H1 found in the source markdown.
+ */
 export function buildHtml({
 	markdown,
 	content,
@@ -109,6 +121,10 @@ export interface GhmdConvertOptions extends GhmdRenderOptions {
 	embedCss?: boolean
 	title?: string
 }
+/**
+ * End-to-end Markdown to full HTML conversion.
+ * Runs CSS resolution and Markdown rendering in parallel, then composes the final document.
+ */
 export async function convertMarkdownToHtml(
 	markdown: string,
 	options: GhmdConvertOptions = {},
