@@ -8,16 +8,10 @@ It has two available implementations:
 
 -   [Python](https://pypi.org/project/ghmd/)
 -   [Node.js](https://www.npmjs.com/package/ghmd-js)
--   Browser app (React + Vite, in `src/browser`)
+   
+The Node.js implementation is browser-compatible. You can use it at:
 
-## Browser app
-
-```bash
-pnpm --dir src/browser install
-pnpm dev:browser
-```
-
-The browser app lets you either upload a markdown file or write markdown directly, then download the converted HTML file.
+-   [Browser app](https://ghmd.roman910.dev)
   
 ## Installation
 
@@ -35,6 +29,8 @@ pip install ghmd
 
 ## Usage
 
+### CLI (Node, Python)
+
 Simply run `ghmd` with the path to the markdown file(s) you want to convert. An HTML file will be created in the same directory as the markdown file with the same filename.
 
 ```bash
@@ -44,9 +40,20 @@ ghmd README.md CONTRIBUTING.md
 ```
 
 > [!NOTE]
-> If you don't have the `ghmd` command available after installing, you may need to add the Python scripts directory to your PATH environment variable.
+> If you don't have the `ghmd` command available after installing, you may need to add the Python or NPM scripts directory to your PATH environment variable.
 >
 > Otherwise you, can use `python -m ghmd` instead of `ghmd`.
+
+### API (Node)
+
+The Node implementation exposes an API that can be used as follows. This is not available in the Python implementation.
+
+```ts
+import { convertMarkdownToHtml } from 'ghmd-js'
+
+const html = await convertMarkdownToHtml('# Hello, world!')
+console.log(html)
+```
 
 ## Options
 

@@ -20,22 +20,33 @@
     "converter"
   ],
   "type": "module",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "tsc -p tsconfig.json && chmod +x dist/cli.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "ghmd": "src/index.js"
+    "ghmd": "dist/cli.js"
   },
   "files": [
-    "src",
-    "shared",
+    "dist",
     "README.md"
   ],
   "packageManager": "pnpm@10.18.3",
-  "devDependencies": {
-    "@biomejs/biome": "^2.4.5"
-  },
   "engines": {
     "node": ">=18"
+  },
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./cli": "./dist/cli.js"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.5",
+    "@types/node": "^25.3.3",
+    "typescript": "^5.9.3"
   }
 }

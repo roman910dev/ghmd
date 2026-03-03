@@ -12,12 +12,19 @@
 		"python",
 		"repo",
 		"test",
-		"node"
+		"node",
+		"browser"
 	],
 	"[json]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
 	"[python]": {
 		"editor.defaultFormatter": "charliermarsh.ruff"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
 	}
 }
