@@ -34,9 +34,9 @@ node_modules/
 test/output/
 
 # Shared
-src/node/shared/
+src/node/src/generated/
+src/browser/src/generated/
 src/python/src/ghmd/shared/
-src/browser/shared/
 src/node/README.md
 src/python/README.md
 
