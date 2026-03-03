@@ -1,12 +1,14 @@
+import type { GhmdMode, GhmdTheme } from 'ghmd-js'
 import { convertMarkdownToHtml } from 'ghmd-js'
+import type { ChangeEvent } from 'react'
 import { useState } from 'react'
-import { strings } from './generated/shared.js'
+import { strings } from './generated/shared'
 
 const optionDescriptionByName = Object.fromEntries(
 	strings.help.options.map(({ name, description }) => [name, description]),
 )
 
-const readText = (file) =>
+const readText = (file: Blob): Promise<string> =>
 	new Promise((resolve, reject) => {
 		const reader = new FileReader()
 		reader.onload = () => resolve(String(reader.result))
@@ -17,13 +19,13 @@ const readText = (file) =>
 export function App() {
 	const [markdown, setMarkdown] = useState('# Hello from ghmd browser\n')
 	const [filename, setFilename] = useState('document.md')
-	const [theme, setTheme] = useState('system')
+	const [theme, setTheme] = useState<GhmdTheme>('system')
 	const [embedCss, setEmbedCss] = useState(false)
-	const [mode, setMode] = useState('gfm')
+	const [mode, setMode] = useState<GhmdMode>('gfm')
 	const [busy, setBusy] = useState(false)
 	const [error, setError] = useState('')
 
-	async function onFileUpload(event) {
+	async function onFileUpload(event: ChangeEvent<HTMLInputElement>) {
 		const [file] = event.target.files ?? []
 		if (!file) return
 
@@ -85,7 +87,7 @@ export function App() {
 					Theme
 					<select
 						value={theme}
-						onChange={(event) => setTheme(event.target.value)}
+						onChange={(event) => setTheme(event.target.value as GhmdTheme)}
 					>
 						<option value="system">System</option>
 						<option value="light">Light</option>
@@ -98,7 +100,7 @@ export function App() {
 					Mode
 					<select
 						value={mode}
-						onChange={(event) => setMode(event.target.value)}
+						onChange={(event) => setMode(event.target.value as GhmdMode)}
 					>
 						<option value="gfm">GitHub Flavored Markdown</option>
 						<option value="markdown">Plain markdown (--no-gfm)</option>
