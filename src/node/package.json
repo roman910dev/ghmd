@@ -22,7 +22,7 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "build": "rm -rf dist && tsc -p tsconfig.json && cp -R shared dist/shared && chmod +x dist/cli.js",
+    "build": "tsc -p tsconfig.json && chmod +x dist/cli.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {

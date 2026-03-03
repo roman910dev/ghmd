@@ -1,38 +1,10 @@
-import { readFileSync, writeFileSync } from 'node:fs'
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { strings, template } from './generated/shared.js'
 
 type FetchImpl = typeof fetch
 export type GhmdTheme = 'system' | 'light' | 'dark'
 export type GhmdMode = 'gfm' | 'markdown'
 
-interface HelpOption {
-	name: string
-	description: string
-}
-
-interface GhmdStrings {
-	help: {
-		description: string[]
-		options: HelpOption[]
-		footer: string[]
-	}
-	errors: {
-		invalidOption: string
-		htmlExtension: string
-		embedCss: string
-		markdownConversion: string
-	}
-	css: {
-		uri: string
-		link: string
-	}
-}
-
 const MARKDOWN_API_URL = 'https://api.github.com/markdown'
-
-export const strings: GhmdStrings = JSON.parse(getShared('strings.json'))
-export const template = getShared('md-template.html')
 
 export function formatHelpMessage() {
 	const help = strings.help
@@ -40,11 +12,6 @@ export function formatHelpMessage() {
 		({ name, description }) => `    ${name.padEnd(18, ' ')}${description}`,
 	)
 	return [...help.description, ...options, ...help.footer].join('\n')
-}
-
-function getShared(filename: string) {
-	const dirname = path.dirname(fileURLToPath(import.meta.url))
-	return readFileSync(path.join(dirname, '../shared', filename), 'utf-8')
 }
 
 function assertTheme(theme: GhmdTheme) {
@@ -97,11 +64,7 @@ export interface GhmdRenderOptions {
 }
 export async function renderMarkdown(
 	markdown: string,
-	{
-		mode = 'gfm',
-		token = process.env.GITHUB_TOKEN,
-		fetchImpl = fetch,
-	}: GhmdRenderOptions = {},
+	{ mode = 'gfm', token, fetchImpl = fetch }: GhmdRenderOptions = {},
 ) {
 	assertMode(mode)
 
@@ -145,7 +108,6 @@ export interface GhmdConvertOptions extends GhmdRenderOptions {
 	theme?: GhmdTheme
 	embedCss?: boolean
 	title?: string
-	template?: string
 }
 export async function convertMarkdownToHtml(
 	markdown: string,
@@ -157,6 +119,7 @@ export async function convertMarkdownToHtml(
 		mode = 'gfm',
 		title = '',
 	} = options
+
 	const [css, content] = await Promise.all([
 		getCss({ theme, embedCss, fetchImpl: options.fetchImpl }),
 		renderMarkdown(markdown, {
@@ -165,30 +128,11 @@ export async function convertMarkdownToHtml(
 			fetchImpl: options.fetchImpl,
 		}),
 	])
+
 	return buildHtml({
 		markdown,
 		content,
 		css,
 		pageTitle: title,
-		htmlTemplate: options.template,
 	})
-}
-
-export interface GhmdConvertFileOptions extends GhmdConvertOptions {
-	outputPath?: string
-}
-export async function convertFile(
-	inputPath: string,
-	options: GhmdConvertFileOptions = {},
-) {
-	if (inputPath.endsWith('.html')) throw new Error(strings.errors.htmlExtension)
-
-	const markdown = readFileSync(inputPath, 'utf-8')
-	const html = await convertMarkdownToHtml(markdown, options)
-	const outputPath =
-		options.outputPath ??
-		`${inputPath.split('.').slice(0, -1).join('.') || inputPath}.html`
-
-	writeFileSync(outputPath, html)
-	return outputPath
 }
