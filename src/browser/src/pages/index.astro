@@ -1,3 +1,8 @@
+---
+import { App } from '../App'
+import '../styles.css'
+---
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -6,7 +11,6 @@
     <title>ghmd browser</title>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <App client:load />
   </body>
 </html>
