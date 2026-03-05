@@ -6,6 +6,7 @@
 		Segoe UI,
 		Roboto,
 		sans-serif;
+	color: #0f172a;
 }
 
 body {
@@ -19,7 +20,26 @@ main {
 	padding: 24px;
 	display: flex;
 	flex-direction: column;
+	gap: 20px;
+}
+
+.hero p {
+	margin-top: 8px;
+	line-height: 1.5;
+}
+
+.tool {
+	display: flex;
+	flex-direction: column;
 	gap: 12px;
+	background: #fff;
+	padding: 18px;
+	border-radius: 10px;
+	border: 1px solid #e2e8f0;
+}
+
+.tagline {
+	margin-top: -4px;
 }
 
 textarea {
@@ -54,4 +74,14 @@ button {
 
 .error {
 	color: #b91c1c;
+}
+
+section h2 {
+	margin-bottom: 8px;
+}
+
+ol {
+	margin-top: 0;
+	padding-left: 20px;
+	line-height: 1.5;
 }

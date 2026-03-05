@@ -1,0 +1,91 @@
+---
+import { App } from '../App'
+import '../styles.css'
+
+const pageTitle = 'Markdown to HTML Converter (Free Online) | ghmd browser'
+const pageDescription =
+	'Convert Markdown to HTML online with GitHub Flavored Markdown support. Free, fast, and open source.'
+const githubRepoUrl = 'https://github.com/roman910/ghmd'
+const appUrl = 'https://ghmd.roman910.dev'
+
+const webAppSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'WebApplication',
+	name: 'ghmd browser',
+	applicationCategory: 'DeveloperApplication',
+	operatingSystem: 'Web',
+	url: appUrl,
+	description: pageDescription,
+	offers: {
+		'@type': 'Offer',
+		price: '0',
+		priceCurrency: 'USD',
+	},
+	sourceOrganization: {
+		'@type': 'Organization',
+		name: 'ghmd',
+		url: githubRepoUrl,
+	},
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={appUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={appUrl} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="ghmd" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <script type="application/ld+json" set:html={JSON.stringify(webAppSchema)}></script>
+  </head>
+  <body>
+    <main>
+      <header class="hero">
+        <h1>Markdown to HTML converter</h1>
+        <p>
+          ghmd browser converts Markdown files into ready-to-share HTML using GitHub Flavored Markdown,
+          with options for plain Markdown mode, light/dark themes, and embedded CSS.
+        </p>
+      </header>
+
+      <section aria-label="Markdown to HTML conversion tool">
+        <App client:load />
+      </section>
+
+      <section aria-labelledby="how-to-use">
+        <h2 id="how-to-use">How to use</h2>
+        <ol>
+          <li>Upload a <code>.md</code> file or type/paste Markdown in the editor.</li>
+          <li>Pick your output options (theme, markdown mode, and embedded CSS).</li>
+          <li>Click <strong>Convert and download HTML</strong> to save the generated file.</li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="about-ghmd">
+        <h2 id="about-ghmd">About this tool</h2>
+        <p>
+          ghmd is an open-source project with Python and Node.js implementations. This browser tool uses
+          the same Node-based converter and runs fully in your browser for quick, no-signup conversions.
+        </p>
+        <p>
+          Project repository:
+          <a href={githubRepoUrl} rel="noopener noreferrer">{githubRepoUrl}</a>
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

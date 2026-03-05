@@ -66,26 +66,31 @@ export function App() {
 	}
 
 	return (
-		<main>
-			<h1>ghmd browser</h1>
-			<p>Drop markdown in, download html out.</p>
+		<section className="tool" aria-labelledby="converter-title">
+			<h2 id="converter-title">Convert markdown</h2>
+			<p className="tagline">Drop markdown in, download HTML out.</p>
 
+			<label htmlFor="markdown-file">Upload markdown file</label>
 			<input
+				id="markdown-file"
 				type="file"
 				accept=".md,.markdown,text/markdown,text/plain"
 				onChange={onFileUpload}
 			/>
 
+			<label htmlFor="markdown-input">Markdown input</label>
 			<textarea
+				id="markdown-input"
 				value={markdown}
 				onChange={(event) => setMarkdown(event.target.value)}
 				placeholder="Write markdown here..."
 			/>
 
 			<div className="row">
-				<label>
+				<label htmlFor="theme-select">
 					Theme
 					<select
+						id="theme-select"
 						value={theme}
 						onChange={(event) => setTheme(event.target.value as GhmdTheme)}
 					>
@@ -96,9 +101,10 @@ export function App() {
 					<small>{`${optionDescriptionByName['--light']} / ${optionDescriptionByName['--dark']}`}</small>
 				</label>
 
-				<label>
+				<label htmlFor="mode-select">
 					Mode
 					<select
+						id="mode-select"
 						value={mode}
 						onChange={(event) => setMode(event.target.value as GhmdMode)}
 					>
@@ -126,6 +132,6 @@ export function App() {
 			</button>
 
 			{error && <p className="error">{error}</p>}
-		</main>
+		</section>
 	)
 }
