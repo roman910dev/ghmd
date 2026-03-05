@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@astrojs/react": "^4.4.0",
-    "astro": "^5.14.0"
+    "astro": "^5.14.0",
+    "@astrojs/sitemap": "^3.7.0"
   }
 }
