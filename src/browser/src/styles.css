@@ -53,6 +53,7 @@ textarea {
 	display: flex;
 	gap: 16px;
 	flex-wrap: wrap;
+	align-items: flex-start;
 }
 
 label {
@@ -61,10 +62,39 @@ label {
 	gap: 6px;
 }
 
+.option-field {
+	flex: 1 1 230px;
+	padding: 10px 12px;
+	border: 1px solid #e2e8f0;
+	border-radius: 8px;
+	background: #f8fafc;
+}
+
+.option-label {
+	font-weight: 600;
+	color: #0f172a;
+}
+
+.field-help {
+	margin-top: 2px;
+	line-height: 1.4;
+	color: #475569;
+}
+
 .inline {
 	flex-direction: row;
-	align-items: center;
-	margin-top: 24px;
+	align-items: flex-start;
+	gap: 10px;
+}
+
+.inline input {
+	margin-top: 3px;
+}
+
+.inline > span {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
 }
 
 button {

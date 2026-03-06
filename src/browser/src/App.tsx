@@ -87,8 +87,8 @@ export function App() {
 			/>
 
 			<div className="row">
-				<label htmlFor="theme-select">
-					Theme
+				<label htmlFor="theme-select" className="option-field">
+					<span className="option-label">Theme</span>
 					<select
 						id="theme-select"
 						value={theme}
@@ -98,11 +98,11 @@ export function App() {
 						<option value="light">Light</option>
 						<option value="dark">Dark</option>
 					</select>
-					<small>{`${optionDescriptionByName['--light']} / ${optionDescriptionByName['--dark']}`}</small>
+					<small className="field-help">{`${optionDescriptionByName['--light']} / ${optionDescriptionByName['--dark']}`}</small>
 				</label>
 
-				<label htmlFor="mode-select">
-					Mode
+				<label htmlFor="mode-select" className="option-field">
+					<span className="option-label">Mode</span>
 					<select
 						id="mode-select"
 						value={mode}
@@ -111,18 +111,18 @@ export function App() {
 						<option value="gfm">GitHub Flavored Markdown</option>
 						<option value="markdown">Plain markdown (--no-gfm)</option>
 					</select>
-					<small>{optionDescriptionByName['--no-gfm']}</small>
+					<small className="field-help">{optionDescriptionByName['--no-gfm']}</small>
 				</label>
 
-				<label className="inline">
+				<label className="option-field inline">
 					<input
 						type="checkbox"
 						checked={embedCss}
 						onChange={(event) => setEmbedCss(event.target.checked)}
 					/>
 					<span>
-						Embed CSS
-						<small>{optionDescriptionByName['--embed-css']}</small>
+						<span className="option-label">Embed CSS</span>
+						<small className="field-help">{optionDescriptionByName['--embed-css']}</small>
 					</span>
 				</label>
 			</div>
