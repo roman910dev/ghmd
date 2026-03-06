@@ -1,7 +1,8 @@
 import type { GhmdMode, GhmdTheme } from 'ghmd-js'
 import { convertMarkdownToHtml } from 'ghmd-js'
 import type { ChangeEvent } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { initAnalytics, trackEvent } from './analytics'
 import { strings } from './generated/shared'
 
 const optionDescriptionByName = Object.fromEntries(
@@ -25,6 +26,10 @@ export function App() {
 	const [busy, setBusy] = useState(false)
 	const [error, setError] = useState('')
 
+	useEffect(() => {
+		initAnalytics()
+	}, [])
+
 	async function onFileUpload(event: ChangeEvent<HTMLInputElement>) {
 		const [file] = event.target.files ?? []
 		if (!file) return
@@ -33,8 +38,13 @@ export function App() {
 			setError('')
 			setFilename(file.name)
 			setMarkdown(await readText(file))
+			trackEvent('markdown_file_uploaded', {
+				file_extension: file.name.split('.').pop()?.toLowerCase() || 'unknown',
+				file_size_bytes: file.size,
+			})
 		} catch {
 			setError('Could not read markdown file.')
+			trackEvent('markdown_file_upload_failed')
 		}
 	}
 
@@ -42,6 +52,12 @@ export function App() {
 		try {
 			setBusy(true)
 			setError('')
+			trackEvent('convert_clicked', {
+				theme,
+				mode,
+				embed_css: embedCss,
+				markdown_length: markdown.length,
+			})
 			const html = await convertMarkdownToHtml(markdown, {
 				theme,
 				embedCss,
@@ -55,8 +71,21 @@ export function App() {
 			anchor.href = htmlUrl
 			anchor.download = `${filename.replace(/\.[^/.]+$/, '') || 'document'}.html`
 			anchor.click()
+			trackEvent('convert_succeeded', {
+				theme,
+				mode,
+				embed_css: embedCss,
+				output_filename: anchor.download,
+			})
 			URL.revokeObjectURL(htmlUrl)
 		} catch (currentError) {
+			trackEvent('convert_failed', {
+				theme,
+				mode,
+				embed_css: embedCss,
+				error_message:
+					currentError instanceof Error ? currentError.message : 'Unknown error.',
+			})
 			setError(
 				currentError instanceof Error ? currentError.message : 'Unknown error.',
 			)
