@@ -8,24 +8,55 @@ const pageDescription =
 	'Convert Markdown to HTML online with GitHub Flavored Markdown support. Free, fast, and open source.'
 const githubRepoUrl = 'https://github.com/roman910/ghmd'
 const appUrl = 'https://ghmd.roman910.dev'
+const appName = 'ghmd browser'
+const logoUrl = `${appUrl}/web-app-manifest-512x512.png`
 
 const webAppSchema = {
 	'@context': 'https://schema.org',
 	'@type': 'WebApplication',
-	name: 'ghmd browser',
+	'@id': `${appUrl}/#webapp`,
+	name: appName,
+	alternateName: 'ghmd markdown to html converter',
 	applicationCategory: 'DeveloperApplication',
 	operatingSystem: 'Web',
+	browserRequirements: 'Requires JavaScript. Works in modern Chromium, Firefox, and Safari browsers.',
 	url: appUrl,
+	image: logoUrl,
 	description: pageDescription,
-	offers: {
-		'@type': 'Offer',
-		price: '0',
-		priceCurrency: 'USD',
-	},
-	sourceOrganization: {
+	isAccessibleForFree: true,
+	featureList: [
+		'Convert Markdown to HTML directly in the browser',
+		'GitHub Flavored Markdown support',
+		'Optional plain Markdown mode',
+		'Light and dark themes',
+		'Optional embedded CSS in output',
+	],
+	creator: {
 		'@type': 'Organization',
 		name: 'ghmd',
 		url: githubRepoUrl,
+	},
+	publisher: {
+		'@type': 'Organization',
+		name: 'ghmd',
+		url: githubRepoUrl,
+	},
+	sameAs: [githubRepoUrl],
+	softwareHelp: {
+		'@type': 'CreativeWork',
+		url: appUrl,
+		name: 'How to use ghmd browser',
+	},
+	offers: {
+		'@type': 'Offer',
+		url: appUrl,
+		price: '0',
+		priceCurrency: 'USD',
+		availability: 'https://schema.org/InStock',
+	},
+	potentialAction: {
+		'@type': 'UseAction',
+		target: appUrl,
 	},
 }
 ---
