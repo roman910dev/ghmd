@@ -4,6 +4,16 @@ import type { ChangeEvent } from 'react'
 import { useState } from 'react'
 import { strings } from './generated/shared'
 
+type PostHogCaptureProperties = Record<string, boolean | number | string | null | undefined>
+
+declare global {
+	interface Window {
+		posthog?: {
+			capture: (eventName: string, properties?: PostHogCaptureProperties) => void
+		}
+	}
+}
+
 const optionDescriptionByName = Object.fromEntries(
 	strings.help.options.map(({ name, description }) => [name, description]),
 )
@@ -39,6 +49,14 @@ export function App() {
 	}
 
 	async function onConvert() {
+		window.posthog?.capture('browser_convert_to_html_clicked', {
+			embedCss,
+			mode,
+			theme,
+			hasMarkdownContent: markdown.trim().length > 0,
+			hasUploadedFile: filename !== 'document.md',
+		})
+
 		try {
 			setBusy(true)
 			setError('')
