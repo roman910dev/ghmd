@@ -64,7 +64,7 @@ export function App() {
 	function onThemeChange(event: ChangeEvent<HTMLSelectElement>) {
 		const nextTheme = event.target.value as GhmdTheme
 		setTheme(nextTheme)
-		capturePostHogEvent('browser_option_changed', {
+		capturePostHogEvent('option_changed', {
 			optionName: 'theme',
 			optionValue: nextTheme,
 		})
@@ -73,7 +73,7 @@ export function App() {
 	function onModeChange(event: ChangeEvent<HTMLSelectElement>) {
 		const nextMode = event.target.value as GhmdMode
 		setMode(nextMode)
-		capturePostHogEvent('browser_option_changed', {
+		capturePostHogEvent('option_changed', {
 			optionName: 'mode',
 			optionValue: nextMode,
 		})
@@ -82,14 +82,14 @@ export function App() {
 	function onEmbedCssChange(event: ChangeEvent<HTMLInputElement>) {
 		const nextEmbedCss = event.target.checked
 		setEmbedCss(nextEmbedCss)
-		capturePostHogEvent('browser_option_changed', {
+		capturePostHogEvent('option_changed', {
 			optionName: 'embed_css',
 			optionValue: nextEmbedCss,
 		})
 	}
 
 	async function onConvert() {
-		capturePostHogEvent('browser_convert_to_html_clicked', {
+		capturePostHogEvent('convert_to_html_clicked', {
 			embedCss,
 			mode,
 			theme,
