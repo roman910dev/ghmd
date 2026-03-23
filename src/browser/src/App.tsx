@@ -46,6 +46,12 @@ export function App() {
 		const [file] = event.target.files ?? []
 		if (!file) return
 
+		window.posthog?.capture('browser_markdown_file_uploaded', {
+			fileExtension: file.name.split('.').pop()?.toLowerCase(),
+			fileSizeBytes: file.size,
+			fileType: file.type || 'unknown',
+		})
+
 		try {
 			setError('')
 			setFilename(file.name)
