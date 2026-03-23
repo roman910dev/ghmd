@@ -4,6 +4,16 @@ import type { ChangeEvent } from 'react'
 import { useState } from 'react'
 import { strings } from './generated/shared'
 
+type PostHogCaptureProperties = Record<string, boolean | number | string | null | undefined>
+
+declare global {
+	interface Window {
+		posthog?: {
+			capture: (eventName: string, properties?: PostHogCaptureProperties) => void
+		}
+	}
+}
+
 const optionDescriptionByName = Object.fromEntries(
 	strings.help.options.map(({ name, description }) => [name, description]),
 )
@@ -15,6 +25,13 @@ const readText = (file: Blob): Promise<string> =>
 		reader.onerror = () => reject(new Error('Could not read file.'))
 		reader.readAsText(file)
 	})
+
+const capturePostHogEvent = (
+	eventName: string,
+	properties?: PostHogCaptureProperties,
+) => {
+	window.posthog?.capture(eventName, properties)
+}
 
 export function App() {
 	const [markdown, setMarkdown] = useState('# Hello from ghmd browser\n')
@@ -38,7 +55,42 @@ export function App() {
 		}
 	}
 
+	function onThemeChange(event: ChangeEvent<HTMLSelectElement>) {
+		const nextTheme = event.target.value as GhmdTheme
+		setTheme(nextTheme)
+		capturePostHogEvent('browser_option_changed', {
+			optionName: 'theme',
+			optionValue: nextTheme,
+		})
+	}
+
+	function onModeChange(event: ChangeEvent<HTMLSelectElement>) {
+		const nextMode = event.target.value as GhmdMode
+		setMode(nextMode)
+		capturePostHogEvent('browser_option_changed', {
+			optionName: 'mode',
+			optionValue: nextMode,
+		})
+	}
+
+	function onEmbedCssChange(event: ChangeEvent<HTMLInputElement>) {
+		const nextEmbedCss = event.target.checked
+		setEmbedCss(nextEmbedCss)
+		capturePostHogEvent('browser_option_changed', {
+			optionName: 'embed_css',
+			optionValue: nextEmbedCss,
+		})
+	}
+
 	async function onConvert() {
+		capturePostHogEvent('browser_convert_to_html_clicked', {
+			embedCss,
+			mode,
+			theme,
+			hasMarkdownContent: markdown.trim().length > 0,
+			hasUploadedFile: filename !== 'document.md',
+		})
+
 		try {
 			setBusy(true)
 			setError('')
@@ -92,7 +144,7 @@ export function App() {
 					<select
 						id="theme-select"
 						value={theme}
-						onChange={(event) => setTheme(event.target.value as GhmdTheme)}
+						onChange={onThemeChange}
 					>
 						<option value="system">System</option>
 						<option value="light">Light</option>
@@ -106,7 +158,7 @@ export function App() {
 					<select
 						id="mode-select"
 						value={mode}
-						onChange={(event) => setMode(event.target.value as GhmdMode)}
+						onChange={onModeChange}
 					>
 						<option value="gfm">GitHub Flavored Markdown</option>
 						<option value="markdown">Plain markdown (--no-gfm)</option>
@@ -118,7 +170,7 @@ export function App() {
 					<input
 						type="checkbox"
 						checked={embedCss}
-						onChange={(event) => setEmbedCss(event.target.checked)}
+						onChange={onEmbedCssChange}
 					/>
 					<span>
 						<span className="option-label">Embed CSS</span>
