@@ -104,7 +104,6 @@ export function App() {
 				theme,
 				embedCss,
 				mode,
-				title: 'ghmd browser',
 			})
 
 			const htmlBlob = new Blob([html], { type: 'text/html' })
